@@ -19,11 +19,11 @@ img :
 
 run :
 	make img
-	qemu-system-i386 -fda helloos.img
+	qemu-system-i386 -fda haribote.img
 
 clean :
 	rm ipl.bin
-	rm haribote.bin
+	rm haribote.sys
 	rm ipl.lst
 	rm haribote.lst
 

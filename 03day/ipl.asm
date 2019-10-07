@@ -63,7 +63,7 @@ next:
         MOV     AX,ES           ; アドレスを0x200すすめる
         ADD     AX,0x0020       
         MOV     ES,AX           ; ADD ES,0x020という命令がないからこうする
-        MOV     CL,1            ; CLに1を足す
+        ADD     CL,1            ; CLに1を足す
         CMP     CL,18           ; CLと18を比較
 		JBE		readloop		; 無限ループ
         MOV     CL,1
@@ -75,9 +75,8 @@ next:
         CMP     CH,CYLS
         JB      readloop        ;CH<CYLSだったらreadloop
 
-fin:
-        HLT
-        JMP     fin
+        MOV     [0x0ff0], CH
+        JMP     0xc200
 
 error:
         MOV     SI,msg
@@ -91,6 +90,11 @@ putloop:
 		MOV		BX,15			; カラーコード
 		INT		0x10			; ビデオBIOS呼び出し
 		JMP		putloop
+
+fin:
+        HLT
+        JMP     fin
+
 
 msg:
 		DB		0x0a, 0x0a		; 改行を2つ
