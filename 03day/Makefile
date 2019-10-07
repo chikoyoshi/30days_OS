@@ -4,17 +4,18 @@ default :
 ipl.bin : ipl.asm Makefile
 	nasm ipl.asm -o ipl.bin -l ipl.lst
 
-tail.bin : tail.asm Makefile
-	nasm tail.asm -o tail.bin -l tail.lst
+haribote.sys : haribote.asm Makefile
+	nasm haribote.asm -o haribote.sys -l haribote.lst
 
-helloos.img : ipl.bin tail.bin Makefile
-	cat ipl.bin tail.bin > helloos.img
+haribote.img : ipl.bin haribote.sys Makefile
+	mformat -f 1440 -C -B ipl.bin -i haribote.img ::
+	mcopy haribote.sys -i haribote.img ::
 
 asm :
-	    make -r ipl.bin
+	make -r ipl.bin
 
 img :
-	make -r helloos.img
+	make -r haribote.img
 
 run :
 	make img
@@ -22,10 +23,10 @@ run :
 
 clean :
 	rm ipl.bin
-	rm tail.bin
+	rm haribote.bin
 	rm ipl.lst
-	rm tail.lst
+	rm haribote.lst
 
 src_only :
 	make clean
-	rm helloos.img
+	rm haribote.img
