@@ -2,8 +2,8 @@
 
 
 section .text         ;オブジェクトファイルではこれを書いてからプログラムを書く
-    GLOBAL  io_hlt
+    GLOBAL  _io_hlt
 
-io_hlt:                ;void io_hlt(void);
+_io_hlt:                ;void io_hlt(void);
     HLT
     RET

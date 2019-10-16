@@ -1,9 +1,9 @@
-void io_hlt(void);
+extern void _io_hlt(void);
 
 void HariMain(void)
 {
-    fin:
+fin:
     /*  HLT命令はC言語にない関数を作成    */
-    /*io_hlt();*/
+    _io_hlt();
     goto fin;
 }
