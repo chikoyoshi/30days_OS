@@ -1,6 +1,6 @@
 extern void io_hlt(void);
 extern void io_cli(void);
-extern void out8(int port, int data);
+extern void io_out8(int port, int data);
 extern int io_load_eflags(void);
 extern void io_store_eflags(int eflags);
 //extern void _write_mem8(int addr, int data);
@@ -23,7 +23,7 @@ void HariMain(void)
     }
 
     for (;;){
-        _io_hlt();
+        io_hlt();
     }
 }
 
@@ -59,9 +59,9 @@ void set_palette(int start, int end, unsigned char *rgb)
     io_cli();                   /*許可フラグを0にして割り込み禁止に*/
     io_out8(0x03c8, start);
     for (i = start; i <= end; i++){
-        io_out8(0x03c9, rgb[0], / 4);
-        io_out8(0x03c9, rgb[1], / 4);
-        io_out8(0x03c9, rgb[2], / 4);
+        io_out8(0x03c9, rgb[0] / 4);
+        io_out8(0x03c9, rgb[1] / 4);
+        io_out8(0x03c9, rgb[2] / 4);
         rgb += 3;
     }
     io_store_eflags(eflags);    /*割り込み許可フラグをもとに戻す*/
